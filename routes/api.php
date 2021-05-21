@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+//use App\Http\Controllers\Covid19RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 /* Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 }); */
-Route::post("/CovidRegister",'Covid-19RegisterController@Register');
-Route::post('login','LoginController@index');
+Route::post('CovidRegister','App\Http\Controllers\Covid19RegisterController@Register');
+Route::post('login','App\Http\Controllers\LoginController@index');
 Route::middleware('auth:api')-> post('logout','LoginController@logout');
 
