@@ -25,19 +25,22 @@ class Covid19RegisterController extends Controller
           return $data; */
         $rules =[
             'name' => 'required|max:191|string',
-            'email Address' => 'required|max:191|unique:users|string',
-            'Phone Number' =>'required|max:11|string',
+            'emailAddress' => 'required|max:191|unique:users|string',
+            'PhoneNumber' =>'required|max:11|string',
             'password' => 'required|min:8|string',
-            'confirm password' => 'required|min:8|string|confirmed'
+            'confirmPassword' => 'required|min:8|string|same:password'
         ];
         $messages =[
             'name.required' => 'الإسم مطلوب',
             'name.max' => 'الإسم مطلوب',
-            'email Address.unique' => 'الإيميل موجود بالفعل الرجاء تغييره',
-            'Phone Number.max'=> 'رقم الهاتف لا يقل عن 11 رقم ',
+            'emailAddress.unique' => 'الإيميل موجود بالفعل الرجاء تغييره',
+            'emailAddress.required' =>'يجب ادخال الايميل',
+            'PhoneNumber.max'=> 'رقم الهاتف لا يقل عن 11 رقم ',
             'password.required'=>'الباسورد مطلوب',
             'password' => 'password:api',
-            'confirm password.required'=>'الباسورد مطلوب'
+            'confirmPassword.required'=>'الباسورد مطلوب',
+            'confirmPassword.same' =>'تاكيد الباسورد غلط',
+            'confirmPassword.min' => 'الباسورد يجب اكتر من 8 ارقام'
         ];
         $validator = Validator::make($request->all(),$rules,$messages);
         if($validator->fails()){
@@ -45,10 +48,10 @@ class Covid19RegisterController extends Controller
         }else{
             $data = User::create([
                 'name' => $request->name,
-                'email Address' => $request->email_Address,
-                'Phone Number' => $request->Phone_Number,
+                'emailAddress' => $request->emailAddress,
+                'PhoneNumber' => $request->PhoneNumber,
                 'password' =>Hash::make($request->password),
-                'confirm password' =>Hash::make($request->confirm_password),
+                'confirmPassword' =>Hash::make($request->confirmPassword),
                 'api_token' => Str::random(60),
             ]);
             return $data;

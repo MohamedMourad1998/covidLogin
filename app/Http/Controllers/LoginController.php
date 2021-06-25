@@ -10,7 +10,7 @@ class LoginController extends Controller
 {
     //
     public function index(Request $request){
-        if(auth()->attempt(['email Address' => $request->input('email Address'),
+        if(auth()->attempt(['emailAddress' => $request->input('emailAddress'),
             'password' => $request->input('password')])){
 
             $user = auth()->user();
